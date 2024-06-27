@@ -31,8 +31,11 @@ coordenadas_estados = {
 
 from math import radians, sin, cos, sqrt, atan2
 
+price1 = 0.5    # price for first distance
+price2 = 0.45   # price for second distance
+
 def haversine(lat1, lon1, lat2, lon2):
-    R = 6371.0  # raio da Terra em km
+    R = 6371.0  # Earth's radius in km
 
     dlat = radians(lat2 - lat1)
     dlon = radians(lon2 - lon1)
@@ -56,18 +59,18 @@ def calcular_distancia(estado1, estado2):
     return haversine(coords1[0], coords1[1], coords2[0], coords2[1])
 
 def main():
-    estado1 = input("Digite o nome do primeiro estado: ")
-    estado2 = input("Digite o nome do segundo estado: ")
+    estado1 = input("Digite o nome do primeiro estado: ") # enter the name of the place of departure
+    estado2 = input("Digite o nome do segundo estado: ")  # enter the name of the place of arrival
 
     distancia = calcular_distancia(estado1, estado2)
 
-    if distancia <= 200:
-        custo = distancia * 0.5
+    if distancia <= 200:    # enter the minimum distance for the first trip price
+        custo = distancia * price1
     else:
-        custo = distancia * 0.45
+        custo = distancia * price2
 
     if distancia is None:
-        print("Um ou ambos os estados fornecidos são inválidos.")
+        print("Um ou ambos os estados fornecidos são inválidos.")    # message if the name is not in the dictionary included in the code
     else:
         print(f"A distância entre {estado1} e {estado2} é de {distancia:.2f} km e o valor é R${custo:.2f}.")
 
